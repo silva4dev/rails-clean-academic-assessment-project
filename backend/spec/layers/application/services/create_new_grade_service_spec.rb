@@ -76,7 +76,7 @@ RSpec.describe Application::Services::CreateNewGradeService, type: :service do
         result = service.execute(input_dto)
 
         expect(result.failure[:error]).to eq("Failed to create grade!")
-        expect(result.failure[:code]).to eq(500)
+        expect(result.failure[:code]).to eq(422)
       end
     end
   end
