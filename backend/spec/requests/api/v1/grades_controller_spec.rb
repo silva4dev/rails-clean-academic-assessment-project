@@ -26,7 +26,7 @@ RSpec.describe "api/v1/grades", type: :request do
         required: %w[student_id discipline_id value]
       }
 
-      response(201, "grade created") do
+      response(201, "created") do
         let(:grade) do
           {
             student_id: "4b7243cf-ff2d-44b0-bf25-150e701dcf26",
@@ -39,6 +39,10 @@ RSpec.describe "api/v1/grades", type: :request do
 
       response(422, "unprocessable entity") do
         let(:grade) { { student_id: nil, discipline_id: nil, value: nil } }
+        run_test!
+      end
+
+      response(404, "not found") do
         run_test!
       end
 
