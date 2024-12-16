@@ -14,9 +14,7 @@ module Application
             )
             result = Services::GetTopStudentsService.new.execute(input_dto)
             if result.success? 
-              render json: { 
-                data: result.success[:histories]
-              }, status: result.success[:code]
+              render json: { data: result.success[:histories] }, status: result.success[:code]
             else 
               render json: { 
                 error: result.failure[:error] 

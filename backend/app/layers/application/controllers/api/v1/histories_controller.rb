@@ -11,13 +11,9 @@ module Application
             input_dto = Dtos::GetHistoriesInputDto.new(student_id: params[:id])
             result = Services::GetHistoriesService.new.execute(input_dto)
             if result.success? 
-              render json: { 
-                data: result.success[:histories] 
-              }, status: result.success[:code]
+              render json: { data: result.success[:histories] }, status: result.success[:code]
             else
-              render json: { 
-                error: result.failure[:error] 
-              }, status: result.failure[:code] 
+              render json: { error: result.failure[:error] }, status: result.failure[:code] 
             end
           end
         end
