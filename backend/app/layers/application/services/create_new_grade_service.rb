@@ -28,7 +28,7 @@ module Application
         if @grade_repository.create(grade)
           Success({ message: "Grade successfully created!", code: 201 })
         else
-          Failure({ error: "Failed to create grade!", code: 500 })
+          Failure({ error: "Failed to create grade!", code: 422 })
         end
       end
     end
