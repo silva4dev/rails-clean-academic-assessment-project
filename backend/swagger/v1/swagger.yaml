@@ -103,5 +103,63 @@ paths:
           description: not found
         '500':
           description: internal server error
+  "/api/v1/students":
+    get:
+      summary: List top students
+      tags:
+      - Students
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: History ID
+                        final_grade:
+                          type: number
+                          format: float
+                          description: Final grade
+                        reference_date:
+                          type: string
+                          format: date
+                          description: Reference date
+                        created_at:
+                          type: string
+                          format: date_time
+                          description: Created_at
+                        updated_at:
+                          type: string
+                          format: date_time
+                          description: Updated_at
+                        student:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Student ID
+                            name:
+                              type: string
+                              description: Name
+                            created_at:
+                              type: string
+                              format: date_time
+                              description: Created_at
+                            updated_at:
+                              type: string
+                              format: date_time
+                              description: Updated_at
+        '404':
+          description: not found
+        '500':
+          description: internal server error
 servers:
 - url: http://localhost:3000
