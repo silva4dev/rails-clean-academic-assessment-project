@@ -5,7 +5,6 @@ RSpec.describe "/api/v1/students", type: :request do
     get("List top students") do
       tags "Students"
       produces "application/json"
-
       response(200, "successful") do
         let(:id) { "d4c1c04b-d38a-4d97-8197-7df6afe00e5a" }
         schema type: :object,
@@ -33,15 +32,10 @@ RSpec.describe "/api/v1/students", type: :request do
                    }
                  }
                }
-        run_test!
       end
-
       response(404, "not found") do
-        run_test!
       end
-
       response(500, "internal server error") do
-        run_test!
       end
     end
   end

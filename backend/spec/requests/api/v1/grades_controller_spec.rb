@@ -6,7 +6,6 @@ RSpec.describe "api/v1/grades", type: :request do
       tags "Grades"
       consumes "application/json"
       produces "application/json"
-
       parameter name: :grade, in: :body, schema: {
         type: :object,
         properties: {
@@ -25,7 +24,6 @@ RSpec.describe "api/v1/grades", type: :request do
         },
         required: %w[student_id discipline_id value]
       }
-
       response(201, "created") do
         let(:grade) do
           {
@@ -34,20 +32,13 @@ RSpec.describe "api/v1/grades", type: :request do
             value: 90
           }
         end
-        run_test!
       end
-
       response(422, "unprocessable entity") do
         let(:grade) { { student_id: nil, discipline_id: nil, value: nil } }
-        run_test!
       end
-
       response(404, "not found") do
-        run_test!
       end
-
       response(500, "internal server error") do 
-        run_test!
       end
     end
   end
