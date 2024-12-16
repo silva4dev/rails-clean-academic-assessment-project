@@ -1,0 +1,105 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/grades":
+    post:
+      summary: Create a new grade
+      tags:
+      - Grades
+      parameters: []
+      responses:
+        '201':
+          description: grade created
+        '422':
+          description: unprocessable entity
+        '500':
+          description: internal server error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                student_id:
+                  type: string
+                  description: Student ID
+                discipline_id:
+                  type: string
+                  description: Discipline ID
+                value:
+                  type: number
+                  description: Value (e.g., 0-100)
+              required:
+              - student_id
+              - discipline_id
+              - value
+  "/api/v1/histories/students/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Student ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get histories for a student
+      tags:
+      - Histories
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: History ID
+                        final_grade:
+                          type: number
+                          format: float
+                          description: Final grade
+                        reference_date:
+                          type: string
+                          format: date
+                          description: Reference date
+                        created_at:
+                          type: string
+                          format: date_time
+                          description: Created_at
+                        updated_at:
+                          type: string
+                          format: date_time
+                          description: Updated_at
+                        student:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Student ID
+                            name:
+                              type: string
+                              description: Name
+                            created_at:
+                              type: string
+                              format: date_time
+                              description: Created_at
+                            updated_at:
+                              type: string
+                              format: date_time
+                              description: Updated_at
+        '404':
+          description: not found
+        '500':
+          description: internal server error
+servers:
+- url: http://localhost:3000
