@@ -18,6 +18,10 @@ module Infrastructure
           .order(final_grade: :desc)
           .map { |history| Mappers::GetTopStudentsMapper.to_entity(history) }
       end
+
+      def create(input)
+        Models::HistoryModel.new(input.to_h).save!
+      end
     end
   end
 end
