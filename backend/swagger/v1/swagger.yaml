@@ -1,8 +1,10 @@
 ---
 openapi: 3.0.1
 info:
-  title: API V1
+  title: Academic Assessment
+  description: Building application for performance academic.
   version: v1
+  x-author: Lucas Alves
 paths:
   "/api/v1/grades":
     post:
@@ -15,8 +17,6 @@ paths:
           description: created
         '404':
           description: not found
-        '422':
-          description: unprocessable entity
       requestBody:
         content:
           application/json:
@@ -36,6 +36,41 @@ paths:
               - student_id
               - discipline_id
               - value
+  "/api/v1/grades/students/{id}":
+    get:
+      summary: Get grades and final grade for a student
+      tags:
+      - Grades
+      parameters:
+      - name: id
+        in: path
+        description: Student ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      grades:
+                        type: array
+                        items:
+                          type: object
+                      final_grade:
+                        type: number
+        '404':
+          description: not found
   "/api/v1/histories/students/{id}":
     parameters:
     - name: id

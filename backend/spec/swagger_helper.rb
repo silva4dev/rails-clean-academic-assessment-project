@@ -6,8 +6,10 @@ RSpec.configure do |config|
     "v1/swagger.yaml" => {
       openapi: "3.0.1",
       info: {
-        title: "API V1",
-        version: "v1"
+        title: "Academic Assessment",
+        description: "Building application for performance academic.",
+        version: "v1",
+        "x-author": "Lucas Alves"
       },
       paths: {},
       servers: [

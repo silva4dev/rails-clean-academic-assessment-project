@@ -21,7 +21,7 @@ module Application
             id: student.id,
             name: student.name,
             grades: grades,
-            final_grade: final_grade.round(2)
+            final_grade: final_grade.to_f.round(2)
           },
           code: 200
         })
