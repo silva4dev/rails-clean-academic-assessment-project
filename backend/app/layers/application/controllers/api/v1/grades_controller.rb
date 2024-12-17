@@ -13,9 +13,9 @@ module Application
             input_dto = Dtos::GetGradesInputDto.new(student_id: params[:id])
             result = Services::GetStudentGradesService.new.execute(input_dto)
             if result.success?
-              
+              render json: { data: result.success[:data] }, status: result.success[:code]
             else 
-              
+              render json: { error: result.failure[:error] }, status: result.failure[:code] 
             end
           end
 

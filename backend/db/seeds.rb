@@ -27,8 +27,20 @@ Infrastructure::Models::GradeModel.insert_all([
   },
   {
     student_id: students.first.id,
+    discipline_id: disciplines[0].id,
+    value: 40.4,
+    created_at: Date.new(rand(2021..Date.today.year), rand(1..12), rand(1..28))
+  },
+  {
+    student_id: students.first.id,
     discipline_id: disciplines[1].id,
     value: 70.6,
+    created_at: Date.new(rand(2021..Date.today.year), rand(1..12), rand(1..28))
+  },
+  {
+    student_id: students.first.id,
+    discipline_id: disciplines[1].id,
+    value: 43.45,
     created_at: Date.new(rand(2021..Date.today.year), rand(1..12), rand(1..28))
   },
   {

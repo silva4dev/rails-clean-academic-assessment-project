@@ -5,7 +5,11 @@ module Domain
         raise NotImplementedError
       end
       
-      def find_by_student_id_with_disciplines(id)
+      def get_latest_grades_by_student(id)
+        raise NotImplementedError
+      end
+
+      def get_final_grade_by_student(id)
         raise NotImplementedError
       end
     end

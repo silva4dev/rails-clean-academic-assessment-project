@@ -11,10 +11,18 @@ RSpec.describe Domain::Repositories::GradeRepository, type: :repository do
     end
   end
 
-  describe "#find_by_student_id_with_disciplines" do
+  describe "#get_latest_grades_by_student" do
     it "raises NotImplementedError when called directly" do
       expect {
-        repository.find_by_student_id_with_disciplines("student-123")
+        repository.get_latest_grades_by_student("student-123")
+      }.to raise_error(NotImplementedError)
+    end
+  end
+
+  describe "#get_final_grade_by_student" do
+    it "raises NotImplementedError when called directly" do
+      expect {
+        repository.get_final_grade_by_student("student-123")
       }.to raise_error(NotImplementedError)
     end
   end
