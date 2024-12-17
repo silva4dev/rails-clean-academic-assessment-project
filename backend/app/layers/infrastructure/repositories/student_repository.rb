@@ -7,6 +7,10 @@ module Infrastructure
       def find_by_id(id)
         Models::StudentModel.find_by(id: id)
       end
+
+      def get_students
+        Models::StudentModel.all
+      end
     end
   end
 end
