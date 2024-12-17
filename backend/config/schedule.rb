@@ -1,7 +1,5 @@
 set :runner_command, "rails runner"
-set :output, "log/cron#{Time.now.strftime('%Y%m%d')}.log"
 
-every 1.minute do
-  puts "OKKKKKKKKKKKKKKKKKK"
-  runner "Rails.logger.info('Executando tarefa agendada a cada 1 minuto!')"
+every "0 0 1 * *" do
+  runner "Application::Services::MonthlyClosureService.new.execute", output: { error: "log/cron-error.log", standard: "log/cron.log" }
 end
