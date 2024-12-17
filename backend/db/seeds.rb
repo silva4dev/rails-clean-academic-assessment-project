@@ -4,19 +4,19 @@ require_relative "../app/layers/infrastructure/models/student_model"
 require_relative "../app/layers/infrastructure/models/history_model"
 
 Infrastructure::Models::StudentModel.insert_all([
-  { name: 'John Doe' },
-  { name: 'Jane Smith' }
+  { name: "John Doe" },
+  { name: "Jane Smith" }
 ])
 
 Infrastructure::Models::DisciplineModel.insert_all!([
-  { name: 'Discipline 1', days_interval: 90 },
-  { name: 'Discipline 2', days_interval: 180 },
-  { name: 'Discipline 3', days_interval: nil },
-  { name: 'Discipline 4', days_interval: nil }
+  { name: "Discipline 1", days_interval: 90 },
+  { name: "Discipline 2", days_interval: 180 },
+  { name: "Discipline 3", days_interval: nil },
+  { name: "Discipline 4", days_interval: nil }
 ])
 
-students = Infrastructure::Models::StudentModel.where(name: [ 'John Doe', 'Jane Smith' ])
-disciplines = Infrastructure::Models::DisciplineModel.where(name: [ 'Discipline 1', 'Discipline 2', 'Discipline 3', 'Discipline 4' ])
+students = Infrastructure::Models::StudentModel.all
+disciplines = Infrastructure::Models::DisciplineModel.all
 
 Infrastructure::Models::GradeModel.insert_all([
   {
@@ -80,34 +80,3 @@ Infrastructure::Models::GradeModel.insert_all([
     created_at: Date.new(rand(2021..Date.today.year), rand(1..12), rand(1..28))
   }
 ])
-
-Proc.new {
-  students.each do |student|
-    final_grades = []
-    reference_date = Date.today
-    disciplines.each do |discipline|
-      if discipline.days_interval
-        grades_in_interval = Infrastructure::Models::GradeModel
-                                   .where(student_id: student.id, discipline_id: discipline.id)
-                                   .where('created_at >= ?', reference_date - discipline.days_interval.days)
-        if grades_in_interval.any?
-          final_grades << grades_in_interval.average(:value).to_f
-        else
-          final_grades << 0.0
-        end
-      else
-        last_grade = Infrastructure::Models::GradeModel
-          .where(student_id: student.id, discipline_id: discipline.id)
-          .order(created_at: :desc)
-          .first
-        final_grades << (last_grade ? last_grade.value : 0.0)
-      end
-    end
-
-    Infrastructure::Models::HistoryModel.create!(
-      student_id: student.id,
-      reference_date: reference_date,
-      final_grade: (final_grades.sum / final_grades.size.to_f).to_f
-    )
-  end
-}.call
