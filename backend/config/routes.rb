@@ -12,7 +12,7 @@ Rails.application.routes.draw do
           get "grades/students/:id", to: "grades#show" 
           get "histories/students/:id", to: "histories#show"
           get "students", to: "students#index"
-          get "student", to: "students#show" # NÂO FEITO
+          get "student", to: "students#show"
         end
       end
     end
