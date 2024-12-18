@@ -6,7 +6,7 @@ import Navbar from "../components/navbar";
 const DefaultLayout: React.FC = () => (
   <div className="flex flex-col min-h-screen">
     <Navbar />    
-    <main className="flex-1 p-4 mt-5">
+    <main className="flex-1 p-4">
       <Outlet />
     </main>
     <Footer />

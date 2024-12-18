@@ -4,7 +4,7 @@ import { HttpGetHistoriesService } from "../../services/http-get-histories-servi
 
 jest.mock("axios", () => ({
   get: jest.fn().mockResolvedValue({
-    data: { histories: [{ id: 1, description: "History 1" }] },
+    data: { histories: [{ id: 1, name: "History 1" }] },
   }),
 }));
 
@@ -23,7 +23,7 @@ describe("HttpGetHistoriesService", () => {
   it("should return the data when the response status is 200 OK", async () => {
     const mockResponse = {
       statusCode: HttpStatusCode.ok,
-      body: { histories: [{ id: 1, description: "History 1" }] },
+      body: { histories: [{ id: 1, name: "History 1" }] },
     };
     httpClient.request.mockResolvedValue(mockResponse);
 
@@ -34,7 +34,7 @@ describe("HttpGetHistoriesService", () => {
       method: "get",
     });
     expect(result.value).toEqual({
-      histories: [{ id: 1, description: "History 1" }],
+      histories: [{ id: 1, name: "History 1" }],
     });
   });
 

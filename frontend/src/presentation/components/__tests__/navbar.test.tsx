@@ -2,10 +2,10 @@ import { render, screen } from "@testing-library/react";
 import Navbar from "../navbar";
 
 describe('Navbar', () => {
-  test('should render the title "Solides" in the navbar', () => {
+  test('should render the title "Academic Assessment" in the navbar', () => {
     render(<Navbar />);
     
-    const title = screen.getByText(/Solides/i);
+    const title = screen.getByText(/Academic Assessment/i);
     expect(title).toBeInTheDocument();
   });
 
