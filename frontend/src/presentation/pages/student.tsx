@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { makeHttpGetHistoriesService } from "../../application/factories";
+import { makeHttpGetHistoriesService, makeHttpGetStudentGradesService } from "../../application/factories";
 import { HistoryEntity } from "../../domain/entities";
 
 const StudentPage: React.FC = () => {
   const [histories, setHistories] = useState<HistoryEntity[]>([]);
+  const [grades, setGrades] = useState<any>([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -15,7 +16,14 @@ const StudentPage: React.FC = () => {
         setHistories(response.value.data);
       }
     };
+    const fetchGrades = async () => {
+      const response = await makeHttpGetStudentGradesService(`${id}`).execute(null);
+      if (response?.value) {
+        setGrades(response.value.data);
+      }
+    };
     fetchHistories();
+    fetchGrades();
   }, [id]);
 
   return (
@@ -39,10 +47,7 @@ const StudentPage: React.FC = () => {
             </thead>
             <tbody>
               {histories.map((history) => (
-                <tr
-                  key={history.id}
-                  className="border-b border-gray-200 hover:bg-indigo-50"
-                >
+                <tr key={history.id} className="border-b border-gray-200 hover:bg-indigo-50">
                   <td className="px-6 py-4">{history.student.name}</td>
                   <td className="px-6 py-4">{history.final_grade}</td>
                   <td className="px-6 py-4">{new Date(history.reference_date).toLocaleDateString("pt-BR")}</td>
@@ -53,6 +58,39 @@ const StudentPage: React.FC = () => {
         </div>
       ) : (
         <div className="text-center text-gray-600 mt-6">No histories found!</div>
+      )}
+
+      <h2 className="text-3xl font-semibold text-center mt-8 mb-4">Grades</h2>
+      {grades?.grades && grades.grades.length > 0 ? (
+        <div className="overflow-x-auto bg-gray-50 rounded-lg shadow-sm">
+          <table className="table-auto w-full text-sm text-gray-700">
+            <thead className="bg-blue-600 text-white">
+              <tr>
+                <th className="px-6 py-3 text-left">Discipline</th>
+                <th className="px-6 py-3 text-left">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {grades.grades.map((grade: any) => (
+                <tr key={grade.id} className="border-b border-gray-200 hover:bg-indigo-50">
+                  <td className="px-6 py-4">{grade.discipline.name}</td>
+                  <td className="px-6 py-4">{grade.value}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              {grades?.final_grade !== undefined && (
+                <tr className="bg-blue-600 text-white">
+                  <td className="px-6 py-3 text-left" colSpan={2}>
+                    <span className="text-gray-300">Final Grade:</span> {grades.final_grade}
+                  </td>
+                </tr>
+              )}
+            </tfoot>
+          </table>
+        </div>
+      ) : (
+        <div className="text-center text-gray-600 mt-6">No grades found!</div>
       )}
     </div>
   );
