@@ -31,8 +31,8 @@ module Infrastructure
           .includes(:discipline)
           .where(student_id: id)
           .map { |grade| Infrastructure::Mappers::GetStudentGradesMapper.to_dao(grade) }
-        
-        grades.map { |grade| grade[:value] }.sum / grades.size
+        final_grade = grades.map { |grade| grade[:value] }.sum
+        grades.size > 0 ? final_grade / grades.size : final_grade
       end
     end
   end

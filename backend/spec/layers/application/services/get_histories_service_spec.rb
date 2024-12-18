@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Application::Services::GetHistoriesService do
+RSpec.describe Application::Services::GetHistoriesService, type: :service do
   let(:student_repository) { instance_double("Infrastructure::Repositories::StudentRepository") }
   let(:history_repository) { instance_double("Infrastructure::Repositories::HistoryRepository") }
   let(:service) { described_class.new(student: student_repository, history: history_repository) }

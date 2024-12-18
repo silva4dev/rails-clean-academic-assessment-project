@@ -190,5 +190,33 @@ paths:
                               description: Updated_at
         '404':
           description: not found
+  "/api/v1/student":
+    get:
+      summary: Get student closest to maximum grade (100)
+      tags:
+      - Students
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Student ID
+                      name:
+                        type: string
+                        description: Student Name
+                      final_grade:
+                        type: number
+                        format: float
+                        description: Final grade
+        '404':
+          description: no students found
 servers:
 - url: http://localhost:3000

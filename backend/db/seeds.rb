@@ -81,32 +81,32 @@ Infrastructure::Models::GradeModel.insert_all([
   }
 ])
 
-# Proc.new {
-#   students.each do |student|
-#     final_grades = []
-#     reference_date = Date.today
-#     disciplines.each do |discipline|
-#       if discipline.days_interval
-#         grades_in_interval = Infrastructure::Models::GradeModel
-#                                    .where(student_id: student.id, discipline_id: discipline.id)
-#                                    .where("created_at >= ?", reference_date - discipline.days_interval.days)
-#         if grades_in_interval.any?
-#           final_grades << grades_in_interval.average(:value).to_f
-#         else
-#           final_grades << 0.0
-#         end
-#       else
-#         last_grade = Infrastructure::Models::GradeModel
-#           .where(student_id: student.id, discipline_id: discipline.id)
-#           .order(created_at: :desc)
-#           .first
-#         final_grades << (last_grade ? last_grade.value : 0.0)
-#       end
-#     end
-#     Infrastructure::Models::HistoryModel.create!(
-#       student_id: student.id,
-#       reference_date: Date.new(2024, 11, 10),
-#       final_grade: (final_grades.sum / final_grades.size.to_f).to_f
-#     )
-#   end
-# }.call
+Proc.new {
+  students.each do |student|
+    final_grades = []
+    reference_date = Date.today
+    disciplines.each do |discipline|
+      if discipline.days_interval
+        grades_in_interval = Infrastructure::Models::GradeModel
+                                   .where(student_id: student.id, discipline_id: discipline.id)
+                                   .where("created_at >= ?", reference_date - discipline.days_interval.days)
+        if grades_in_interval.any?
+          final_grades << grades_in_interval.average(:value).to_f
+        else
+          final_grades << 0.0
+        end
+      else
+        last_grade = Infrastructure::Models::GradeModel
+          .where(student_id: student.id, discipline_id: discipline.id)
+          .order(created_at: :desc)
+          .first
+        final_grades << (last_grade ? last_grade.value : 0.0)
+      end
+    end
+    Infrastructure::Models::HistoryModel.create!(
+      student_id: student.id,
+      reference_date: Date.new(2024, 11, 10),
+      final_grade: (final_grades.sum / final_grades.size.to_f).to_f
+    )
+  end
+}.call

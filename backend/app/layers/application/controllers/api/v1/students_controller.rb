@@ -1,6 +1,7 @@
 require_relative "../../../../shared_kernel/application/application_controller"
 require_relative "../../../services/get_top_students_service"
 require_relative "../../../dtos/get_top_students_input_dto"
+require_relative "../../../services/get_student_closest_to_max_grade_service"
 
 module Application
   module Controllers
@@ -19,6 +20,15 @@ module Application
               render json: { 
                 error: result.failure[:error] 
               }, status: result.failure[:code] 
+            end
+          end
+
+          def show  
+            result = Services::GetStudentClosestToMaxGradeService.new.execute
+            if result.success?
+              render json: { data: result.success[:data] }, status: result.success[:code]
+            else
+              render json: { error: result.failure[:error] }, status: result.failure[:code]
             end
           end
         end
