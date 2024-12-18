@@ -24,4 +24,6 @@ group :development, :test do
   gem "rswag-ui"
   gem "rspec-rails"
   gem "rswag-specs"
+  gem "better_errors"
+  gem "dotenv-rails"
 end
