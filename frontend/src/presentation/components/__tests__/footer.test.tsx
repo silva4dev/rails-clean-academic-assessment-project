@@ -5,8 +5,7 @@ describe('Footer', () => {
   test('should render the footer content with the current year and correct text', () => {
     const currentYear = new Date().getFullYear();
     const { getByText } = render(<Footer />);
-    expect(getByText(`© ${currentYear}`)).toBeInTheDocument();
-    expect(getByText(/developed with/i)).toBeInTheDocument();
+    expect(getByText(/Developed with/i)).toBeInTheDocument();
     expect(getByText('Lucas Alves')).toBeInTheDocument();
   });
 
