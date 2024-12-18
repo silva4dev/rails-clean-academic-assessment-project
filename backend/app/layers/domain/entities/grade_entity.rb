@@ -26,7 +26,7 @@ module Domain
           id: id,
           student_id: student_id,
           discipline_id: discipline_id,
-          value: value,
+          value: value.to_f.round(2),
           created_at: created_at,
           updated_at: updated_at
         }
