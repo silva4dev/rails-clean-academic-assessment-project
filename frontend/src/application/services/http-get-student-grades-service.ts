@@ -1,13 +1,14 @@
 import { UnexpectedError } from "../../domain/exceptions";
 import { HttpClient, HttpStatusCode, Right } from "../../shared_kernel";
+import { GetStudentGradesResponse, GetStudentGradesService } from "../../domain/services/get-student-grades-service";
 
-export class HttpGetStudentGradesService {
+export class HttpGetStudentGradesService implements GetStudentGradesService {
   private readonly url: string;
-  private readonly httpGetClient: HttpClient<any>;
+  private readonly httpGetClient: HttpClient<GetStudentGradesResponse>;
 
   constructor(
     url: string,
-    httpGetClient: HttpClient<any>
+    httpGetClient: HttpClient<GetStudentGradesResponse>
   ) {
     this.url = url;
     this.httpGetClient = httpGetClient
