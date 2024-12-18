@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
       }
     };
     fetchTopStudents();
-  }, [topStudents]);
+  }, []);
 
   return (
     <div className="max-w-3xl mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-md">

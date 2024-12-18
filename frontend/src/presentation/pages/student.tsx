@@ -24,7 +24,7 @@ const StudentPage: React.FC = () => {
     };
     fetchHistories();
     fetchGrades();
-  }, [id]);
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
