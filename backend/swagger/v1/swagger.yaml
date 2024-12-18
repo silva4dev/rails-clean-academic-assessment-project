@@ -192,7 +192,7 @@ paths:
           description: not found
   "/api/v1/student":
     get:
-      summary: Get student closest to maximum grade (100)
+      summary: Get student closest to maximum grade
       tags:
       - Students
       responses:

@@ -59,7 +59,7 @@ RSpec.describe "/api/v1/students", type: :request do
   end
 
   path "/api/v1/student" do
-    get("Get student closest to maximum grade (100)") do
+    get("Get student closest to maximum grade") do
       tags "Students"
       produces "application/json"
       response(200, "successful") do
