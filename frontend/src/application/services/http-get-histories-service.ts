@@ -1,6 +1,6 @@
-import { HistoryEntity } from "../../domain/entities";
+import { UnexpectedError } from "../../domain/exceptions";
 import { GetHistoriesResponse, GetHistoriesService } from "../../domain/services";
-import { HttpClient, Right } from "../../shared_kernel";
+import { HttpClient, HttpStatusCode, Right } from "../../shared_kernel";
 
 export class HttpGetHistoriesService implements GetHistoriesService {
   private readonly url: string;
@@ -18,9 +18,12 @@ export class HttpGetHistoriesService implements GetHistoriesService {
     const httpResponse = await this.httpGetClient.request({
       url: this.url,
       method: "get",
-      body: {}
-    })
+    });
 
-    return Right<HistoryEntity>(httpResponse?.body?.value!)
+    switch(httpResponse.statusCode) {
+      case HttpStatusCode.ok: return Right<any>(httpResponse.body!);
+      case HttpStatusCode.notFound: return Right<any>(httpResponse.body!);
+      default: throw new UnexpectedError();
+    }
   }
 }
