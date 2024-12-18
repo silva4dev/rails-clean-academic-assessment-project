@@ -30,9 +30,13 @@ module Application
           history = Domain::Entities::HistoryEntity.new(
             reference_date: reference_date,
             final_grade: final_grade,
+            created_at: Time.new,
+            updated_at: nil,
             student: Domain::Entities::StudentEntity.new(
               id: student.id,
               name: student.name,
+              created_at: Time.new,
+              updated_at: nil,
             )
           )
           @history_repository.create(history)
