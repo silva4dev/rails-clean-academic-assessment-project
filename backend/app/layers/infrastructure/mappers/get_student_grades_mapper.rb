@@ -8,7 +8,7 @@ module Infrastructure
       def self.to_dao(entity)
         {
           id: entity.id,
-          value: entity.value,
+          value: entity.value.to_f.round(2),
           created_at: entity.created_at,
           updated_at: entity.updated_at,
           discipline: {

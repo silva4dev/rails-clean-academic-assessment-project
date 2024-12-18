@@ -8,7 +8,7 @@ module Infrastructure
       def self.to_entity(dao)
         Domain::Entities::HistoryEntity.new(
           id: dao.id,
-          final_grade: dao.final_grade.to_f,
+          final_grade: dao.final_grade.to_f.round(2),
           reference_date: dao.reference_date,
           created_at: dao.created_at,
           updated_at: dao.updated_at,
@@ -24,7 +24,7 @@ module Infrastructure
       def self.to_dao(entity)
         {
           id: entity.id,
-          final_grade: entity.final_grade,
+          final_grade: entity.final_grade.to_f.round(2),
           reference_date: entity.reference_date,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
